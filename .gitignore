@@ -1,24 +1,201 @@
-# Compiled class file
-*.class
+import java.util.Scanner;
+// bring in the scanner
+public class ContactBook {
+       //pulls from address javascript
+    public static Address createAddressRecord() {
+        Scanner scanner = new Scanner(System.in);
+//asks the user for information
+        System.out.print("Enter street number: ");
+        int streetNumber = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
 
-# Log file
-*.log
+        System.out.print("Enter street name: ");
+        String streetName = scanner.nextLine();
 
-# BlueJ files
-*.ctxt
+        System.out.print("Enter zip code: ");
+        int zipCode = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+        System.out.print("Enter city: ");
+        String city = scanner.nextLine();
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+        System.out.print("Enter state: ");
+        String state = scanner.nextLine();
+//sending back new info that contact book can read and use as a variable/output
+        return new Address(streetNumber, streetName, zipCode, city, state);
+    }
+//pulls from contact java script
+    public static Contact createContactRecord(Address homeAddress) {
+        Scanner scanner = new Scanner(System.in);
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+        System.out.print("Enter first name: ");
+        String firstName = scanner.nextLine();
+
+        System.out.print("Enter last name: ");
+        String lastName = scanner.nextLine();
+
+        System.out.print("Enter birthday (mm/dd/yyyy): ");
+        String birthday = scanner.nextLine();
+
+        System.out.print("Enter phone number: ");
+        String phoneNumber = scanner.nextLine();
+
+        System.out.print("Enter email address: ");
+        String emailAddress = scanner.nextLine();
+
+        return new Contact(firstName, lastName, birthday, phoneNumber, emailAddress, homeAddress);
+    }
+
+//displays the information previously inputted
+    public static void showContactDetails(Contact contact) {
+        System.out.println("Here is the contact info for " + contact.getFirstName() + " " + contact.getLastName() + ":");
+        System.out.println(contact);
+    }
+
+    public static void main(String[] args) {
+//creates contact based on address and contact info
+        for (int i = 1; i <= 3; i++) {
+            System.out.println("\nCreating contact " + i + ":");
+            Address address = createAddressRecord();
+            Contact contact = createContactRecord(address);
+            showContactDetails(contact);
+        }
+    }
+}
+class Address {
+    private int streetNumber;
+    private String streetName;
+    private int zipCode;
+    private String city;
+    private String state;
+
+    // Constructor
+    public Address(int streetNumber, String streetName, int zipCode, String city, String state) {
+        this.streetNumber = streetNumber;
+        this.streetName = streetName;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.state = state;
+    }
+
+    // Getters and Setters
+    public int getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(int streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    // toString method
+    @Override
+    public String toString() {
+        return streetNumber + " " + streetName + ", " + city + ", " + state + " " + zipCode;
+    }
+}
+class Contact {
+    private String firstName;
+    private String lastName;
+    private String birthday;
+    private String phoneNumber;
+    private String emailAddress;
+    private Address homeAddress;
+
+    // Constructor
+    public Contact(String firstName, String lastName, String birthday, String phoneNumber, String emailAddress, Address homeAddress) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+        this.homeAddress = homeAddress;
+    }
+
+    // Getters and Setters
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    // toString method
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + "\nBirthday: " + birthday + "\nPhone: " + phoneNumber +
+                "\nEmail: " + emailAddress + "\nAddress: " + homeAddress;
+    }
+}
